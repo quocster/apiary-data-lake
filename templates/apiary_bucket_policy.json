@@ -26,7 +26,7 @@
             "Resource": "arn:aws:s3:::${bucket_name}/*",
             "Condition": {
               "StringLike": {
-                "aws:username": [ "${deny_principal}" ]
+                "aws:userid": [ "${deny_principal}" ]
               }
             }
         },
