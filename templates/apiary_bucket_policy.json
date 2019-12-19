@@ -21,16 +21,14 @@
         {
             "Sid": "Local role deny permissions",
             "Effect": "Deny",
-            "Principal": {
-                "AWS": [ "${deny_principal}" ]
-            },
-            "Action": [
-                "s3:GetObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::${bucket_name}",
-                "arn:aws:s3:::${bucket_name}/*"
-            ]
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::${bucket_name}/*",
+            "Condition": {
+              "StringLike": {
+                "aws:userId": [ "${deny_principal}" ]
+              }
+            }
         },
         {
             "Sid": "Apiary producer iamrole permissions",
