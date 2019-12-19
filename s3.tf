@@ -49,7 +49,7 @@ data "template_file" "bucket_policy" {
 
     bucket_name       = "${local.apiary_data_buckets[count.index]}"
     producer_iamroles = "${replace(lookup(var.apiary_producer_iamroles, element(concat(local.apiary_managed_schema_names_original, list("")), count.index), "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"), ",", "\",\"")}"
-    deny_principal    = join("\",\"", formatlist("arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/%s", var.local_deny_roles))
+    deny_principal    = join("\",\"", formatlist("arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/%s", var.local_deny_roles))
   }
 }
 
