@@ -94,6 +94,12 @@ variable "apiary_customer_accounts" {
   type        = "list"
 }
 
+variable "local_deny_roles" {
+  description = "IAM roles denied read access to Apiary S3 buckets."
+  type        = "list"
+  default     = []
+}
+
 variable "apiary_assume_roles" {
   description = "Cross account AWS IAM roles allowed write access to managed Apiary S3 buckets using assume policy."
   type        = "list"
