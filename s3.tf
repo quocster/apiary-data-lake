@@ -8,7 +8,11 @@ resource "aws_s3_bucket" "apiary_inventory_bucket" {
   count  = var.s3_enable_inventory == true ? 1 : 0
   bucket = "${local.apiary_bucket_prefix}-s3-inventory"
   acl    = "private"
-  tags   = "${merge(map("Name", "${local.apiary_bucket_prefix}-s3-inventory"), "${var.apiary_tags}")}"
+  tags   =
+  "${merge(
+      map("Name", "${local.apiary_bucket_prefix}-s3-inventory"),
+      "${var.apiary_tags}")
+    }"
   policy = <<EOF
 {
   "Version":"2012-10-17",
