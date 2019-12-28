@@ -10,6 +10,8 @@ locals {
   enable_route53_records               = "${var.apiary_domain_name == "" ? "0" : "1"}"
   apiary_managed_schema_names_original = [for schema in var.apiary_managed_schemas : "${schema.schema_name}"]
   apiary_managed_schema_names_replaced = [for schema in var.apiary_managed_schemas : "${replace(schema.schema_name, "_", "-")}"]
+  apiary_s3_bucket_tags_product        = [for schema in var.apiary_managed_schemas : "${schema.product}"]
+  apiary_s3_bucket_tags_domain         = [for schema in var.apiary_managed_schemas : "${schema.domain}"]
   apiary_data_buckets                  = [for schema in var.apiary_managed_schemas : "${local.apiary_bucket_prefix}-${replace(schema.schema_name, "_", "-")}"]
   gluedb_prefix                        = "${var.instance_name == "" ? "" : "${var.instance_name}_"}"
   cw_arn                               = "arn:aws:swf:${var.aws_region}:${data.aws_caller_identity.current.account_id}:action/actions/AWS_EC2.InstanceId.Reboot/1.0"
