@@ -61,7 +61,7 @@ resource "aws_s3_bucket" "apiary_data_bucket" {
   acl           = "private"
   request_payer = "BucketOwner"
   policy        = "${data.template_file.bucket_policy.*.rendered[count.index]}"
-  tags          = "${merge(map("Name", "${element(local.apiary_data_buckets, count.index)}"), "${var.apiary_tags}", map("Product", "${element(local.apiary_s3_bucket_tags_product, count.index)}"), map("Domain", "${element(local.apiary_s3_bucket_tags_domain, count.index)}"))}"
+  tags          = "${merge("${var.apiary_tags}", map("Name", "${element(local.apiary_data_buckets, count.index)}"), map("Product", "${element(local.apiary_s3_bucket_tags_product, count.index)}"), map("Domain", "${element(local.apiary_s3_bucket_tags_domain, count.index)}"))}"
 
   logging {
     target_bucket = "${var.apiary_log_bucket}"
